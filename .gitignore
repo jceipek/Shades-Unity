@@ -4,3 +4,8 @@ Shades/Library/*
 *.blend2
 *.blend1.*
 *.blend2.*
+.*.swo
+.*.swp
+*.*.orig
+.*.*.swn
+
