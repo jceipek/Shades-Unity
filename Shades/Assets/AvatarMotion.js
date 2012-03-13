@@ -13,13 +13,17 @@ function Start () {
 }
 
 function Update () {
-	if (Mathf.Abs(rigidbody.velocity.y) < maxSpeed){
-		rigidbody.velocity.y = maxSpeed * Mathf.Sign(rigidbody.velocity.y);
-	}
-
-	if (! grounded){
-		rigidbody.AddForce(0, -10, 0);
-	}
+	//Debug.Log(rigidbody.velocity.y);
+	
+	//if (! grounded){
+	//	rigidbody.AddForce(Physics.gravity * rigidbody.mass);
+	//}
+	rigidbody.AddForce(Physics.gravity * rigidbody.mass);
+	//if (Mathf.Abs(rigidbody.velocity.y) < maxSpeed){
+	//	rigidbody.velocity.y = maxSpeed * Mathf.Sign(rigidbody.velocity.y);
+	//}
+	Debug.Log(rigidbody.velocity.y);
+	Debug.Log(Mathf.Sign(rigidbody.velocity.y));
 
 	if (Input.GetButtonDown("Jump")) {
 		jumping = true;
@@ -30,7 +34,7 @@ function Update () {
 	}
 	
 	if(grounded && jumping) {
-		rigidbody.AddForce(0, 1000, 0);
+		rigidbody.AddForce(0, 2000, 0);
 		grounded = false;
 	}
 
