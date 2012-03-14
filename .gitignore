@@ -1,5 +1,6 @@
 .DS_Store
 Shades/Library/*
+Temp/*
 *.blend1
 *.blend2
 *.blend1.*
