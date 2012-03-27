@@ -9,7 +9,8 @@ var airModifier : float;
 var groundDetectionRange : float; //How far from ground you can be to jump
 
 function Start () {
-	
+	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("DarkWorld"),LayerMask.NameToLayer("LightWorld"),true);
+	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("LightWorld"),LayerMask.NameToLayer("DarkWorld"),true);
 }
 
 function Update () {
