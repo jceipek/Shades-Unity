@@ -189,14 +189,17 @@ function ApplyJumping () {
 	// and after the minimum delay specified by jump.repeatTime from landing
 
 	// Prevent jumping right after the avatar has landed
-	if (jump.lastTime + jump.repeatTime > Time.time)
+	if (jump.lastTime + jump.repeatTime > Time.time) {
+		Debug.Log("Can't jump again because repeatTime");
 		return;
+	}
 
 	if (controller.isGrounded) {
 		// Jump
 		// - Only when pressing the button down
 		// - With a timeout so you can press the button slightly before landing		
 		if (jump.enabled && (Time.time < (jump.lastButtonTime + jump.timeout))) {
+			Debug.Log("Compute Max Req Speed and Jump");
 			movement.verticalSpeed = CalculateJumpVerticalSpeed(jump.minHeight);
 			//movement.inAirVelocity = lastPlatformVelocity; // XXX: need this if we are standing on a moving platform and have some speed already
 			SendMessage("DidJump", SendMessageOptions.DontRequireReceiver);
@@ -217,6 +220,7 @@ function ApplyGravity () {
 	if (jump.jumping && !jump.reachedApex && movement.verticalSpeed <= 0.0) {
 		jump.reachedApex = true;
 		SendMessage("DidJumpReachApex", SendMessageOptions.DontRequireReceiver);
+		Debug.Log("Reached Apex");
 	}
 	
 	//XXX: I'm not sure this gives us the behavior we want - open for exploration
@@ -229,10 +233,13 @@ function ApplyGravity () {
 						 !IsTouchingCeiling();
 	
 	if (isHigherJump) {
+		Debug.Log("Don't apply gravity because hold down");
 		return;
 	} else if (controller.isGrounded) {
+		Debug.Log("Vert speed set to -gravity * time");
 		movement.verticalSpeed = -movement.gravity * Time.deltaTime;
 	} else {
+		Debug.Log("Vert speed set to vertspeed -= gravity * time");
 		movement.verticalSpeed -= movement.gravity * Time.deltaTime;
 	}
 		
@@ -247,6 +254,7 @@ function CalculateJumpVerticalSpeed (targetJumpHeight : float) {
 }
 
 function DidJump () {
+	Debug.Log("DidJump() fired");
 	jump.jumping = true;
 	jump.reachedApex = false;
 	jump.lastTime = Time.time;
@@ -317,6 +325,7 @@ function Update () {
 		if (jump.jumping) {
 			jump.jumping = false;
 			SendMessage("DidLand", SendMessageOptions.DontRequireReceiver);
+			Debug.Log("Did land");
 
 			var jumpMoveDirection = movement.direction * movement.speed + movement.inAirVelocity;
 			if(jumpMoveDirection.sqrMagnitude > 0.01) {
