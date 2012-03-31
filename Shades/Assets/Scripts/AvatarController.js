@@ -109,6 +109,12 @@ private var controller : CharacterController; // We need this to use our own phy
 // Variable Defs END
 //////////////////////////////
 
+function DebugJump() {
+
+	Debug.Log(transform.position);
+
+}
+
 // Don't call manually!
 function Awake () {
 	// Called before any Start functions and lets us initialize stuff. Always called (but only once) even if object is disabled, so use this for construction.
@@ -136,7 +142,7 @@ function Spawn () {
 // Call when died
 function OnDeath () {
 	// Respawn character at last spawn point
-	Spawn ();
+	Spawn();
 }
 
 function UpdateSmoothedMovementDirection () {	
@@ -191,6 +197,7 @@ function ApplyJumping () {
 	// Prevent jumping right after the avatar has landed
 	if (jump.lastTime + jump.repeatTime > Time.time) {
 		Debug.Log("Can't jump again because repeatTime");
+		DebugJump();
 		return;
 	}
 
@@ -200,6 +207,7 @@ function ApplyJumping () {
 		// - With a timeout so you can press the button slightly before landing		
 		if (jump.enabled && (Time.time < (jump.lastButtonTime + jump.timeout))) {
 			Debug.Log("Compute Max Req Speed and Jump");
+			DebugJump();
 			movement.verticalSpeed = CalculateJumpVerticalSpeed(jump.minHeight);
 			//movement.inAirVelocity = lastPlatformVelocity; // XXX: need this if we are standing on a moving platform and have some speed already
 			SendMessage("DidJump", SendMessageOptions.DontRequireReceiver);
@@ -221,6 +229,7 @@ function ApplyGravity () {
 		jump.reachedApex = true;
 		SendMessage("DidJumpReachApex", SendMessageOptions.DontRequireReceiver);
 		Debug.Log("Reached Apex");
+		DebugJump();
 	}
 	
 	//XXX: I'm not sure this gives us the behavior we want - open for exploration
@@ -233,13 +242,16 @@ function ApplyGravity () {
 						 !IsTouchingCeiling();
 	
 	if (isHigherJump) {
-		Debug.Log("Don't apply gravity because hold down");
+		//Debug.Log("Don't apply gravity because hold down");
+		//DebugJump();
 		return;
 	} else if (controller.isGrounded) {
-		Debug.Log("Vert speed set to -gravity * time");
+		//Debug.Log("Vert speed set to -gravity * time");
+		//DebugJump();
 		movement.verticalSpeed = -movement.gravity * Time.deltaTime;
 	} else {
-		Debug.Log("Vert speed set to vertspeed -= gravity * time");
+		//Debug.Log("Vert speed set to vertspeed -= gravity * time");
+		//DebugJump();
 		movement.verticalSpeed -= movement.gravity * Time.deltaTime;
 	}
 		
@@ -255,6 +267,7 @@ function CalculateJumpVerticalSpeed (targetJumpHeight : float) {
 
 function DidJump () {
 	Debug.Log("DidJump() fired");
+	DebugJump();
 	jump.jumping = true;
 	jump.reachedApex = false;
 	jump.lastTime = Time.time;
@@ -326,6 +339,7 @@ function Update () {
 			jump.jumping = false;
 			SendMessage("DidLand", SendMessageOptions.DontRequireReceiver);
 			Debug.Log("Did land");
+			DebugJump();
 
 			var jumpMoveDirection = movement.direction * movement.speed + movement.inAirVelocity;
 			if(jumpMoveDirection.sqrMagnitude > 0.01) {
