@@ -128,6 +128,14 @@ function OnDeath () {
 	Spawn();
 }
 
+function ChangeWorld() {
+	if(gameObject.layer == LayerMask.NameToLayer("DarkWorld")){
+		gameObject.layer = LayerMask.NameToLayer("LightWorld");
+	}else{
+		gameObject.layer = LayerMask.NameToLayer("DarkWorld");
+	}
+}
+
 function UpdateSmoothedMovementDirection () {	
 	var h = Input.GetAxisRaw("Horizontal"); // This is nice because it means that an analog input device will have more control
 
