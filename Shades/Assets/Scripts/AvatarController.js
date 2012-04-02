@@ -110,14 +110,6 @@ function Awake () {
 	//Spawn (); // TODO: Enable this and set a spawn point
 }
 
-function ChangeWorld() {
-	if(gameObject.layer == LayerMask.NameToLayer("DarkWorld")){
-		gameObject.layer = LayerMask.NameToLayer("LightWorld");
-	}else{
-		gameObject.layer = LayerMask.NameToLayer("DarkWorld");
-	}
-}
-
 // Call this whenever you want the character to respawn at the spawn point
 function Spawn () {
 	// reset the character's speed
