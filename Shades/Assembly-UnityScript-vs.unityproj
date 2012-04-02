@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AvatarController.js" />
+     <Compile Include="Assets\Scripts\DeathZoneController.js" />
      <Compile Include="Assets\Scripts\PortalController.js" />
+     <Compile Include="Assets\Scripts\SpawnPointController.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

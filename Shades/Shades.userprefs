@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AvatarController.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DeathZoneController.js">
     <Files>
-      <File FileName="Assets/Scripts/AvatarController.js" Line="185" Column="4" />
+      <File FileName="Assets/Scripts/DeathZoneController.js" Line="15" Column="71" />
+      <File FileName="Assets/Scripts/AvatarController.js" Line="95" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
