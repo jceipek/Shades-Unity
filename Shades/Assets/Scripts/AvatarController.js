@@ -20,7 +20,7 @@ class AvatarControllerMovement {
 
 	// The gravity for the character
 	var gravity = 1.2;
-	var jumpForce = 9.0;
+	
 	var terminalVelocity = 20.0;
 
 	// How fast does the character change speeds?  Higher is faster.
@@ -54,9 +54,13 @@ class AvatarControllerJumping {
 	// Can the character jump?
 	var enabled = true;
 
-	// How high do we jump when pressing jump and letting go immediately
+	var firstJumpForce = 9.0; // Power to oppose gravity during first part of jump
+	var secondJumpForce = 9.0; // Power to oppose gravity on any subsequent part of the jump
+	var stickiness = 0.85; // Avatar can actually go above max height unless this is 0
+
+	// Up to what distance is force continuously applied if we tap the jump button
 	var minHeight = 1.0;
-	// We add extraHeight units (meters) on top when holding the button down longer while jumping
+	// Up to what distance is force continuously applied when we hold the button down longer while jumping
 	var maxHeight = 4.1;
 	
 	// This time the avatar needs to recover from a jump before it can jump again, in seconds
@@ -73,9 +77,9 @@ class AvatarControllerJumping {
 	// 1 = 1 jump
 	// 2 = double jump
 	
-	//@System.NonSerialized
+	@System.NonSerialized
 	var jumpingLevel = 0;
-	var maxJumpingLevel = 1;
+	var maxJumpingLevel = 1; // How many jumps can we chain (double-jumping, triple-jumping, etc...). 1 is no extra jumps
   
 	// Last time the jump button was clicked down
 	@System.NonSerialized
@@ -162,12 +166,10 @@ function ApplyGravity () {
 		movement.verticalSpeed -= movement.gravity;
 	}
 
-}
+	if (movement.verticalSpeed < -movement.terminalVelocity) {
+		movement.verticalSpeed = -movement.terminalVelocity;
+	}
 
-function CalculateJumpVerticalSpeed(targetJumpHeight : float) {
-	// From the jump height and gravity we deduce the upwards speed 
-	// needed for the character to reach the apex.
-	return Mathf.Sqrt(2 * targetJumpHeight * movement.gravity);
 }
 
 function Update() {
@@ -185,8 +187,7 @@ function Update() {
 				// Initiate jump from ground
 				jump.lastStartHeight = transform.position.y;
 				jump.jumpingLevel = 0;
-				movement.verticalSpeed = movement.jumpForce;
-				//movement.verticalSpeed = CalculateJumpVerticalSpeed(jump.minHeight);
+				movement.verticalSpeed = jump.firstJumpForce;
 			}
 			
 			jump.jumpingLevel++;
@@ -202,13 +203,13 @@ function Update() {
 		
 		if ((movement.verticalSpeed > 0.0) && (jump.jumpingLevel > 0) && (jump.jumpingLevel <= jump.maxJumpingLevel)) {
 			if (transform.position.y - jump.lastStartHeight < jump.minHeight) {
-				movement.verticalSpeed = movement.jumpForce;
-			} else {
-				if (Input.GetButton("Jump") && 
+				movement.verticalSpeed = jump.firstJumpForce;
+			} else if (Input.GetButton("Jump") && 
 				(transform.position.y - jump.lastStartHeight < jump.maxHeight*jump.jumpingLevel)) {
-					movement.verticalSpeed = movement.jumpForce;
-				}
-			}
+					movement.verticalSpeed = jump.secondJumpForce;
+			} else {
+				movement.verticalSpeed *= jump.stickiness;
+			} 
 		}
 		
 	}
