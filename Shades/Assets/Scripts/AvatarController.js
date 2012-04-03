@@ -71,6 +71,8 @@ class AvatarControllerJumping {
 	// The time you have to wait before pressing the jump button again, in seconds
 	//@System.NonSerialized
 	var timeout = 0.15;
+	
+	var ceilingRestitution = 0.1; // What fraction of the upwards velocity is preserved when hitting the ceiling
 
 	// Are we jumping?
 	// 0 = No
@@ -212,6 +214,10 @@ function Update() {
 			} 
 		}
 		
+		if (IsTouchingCeiling() && movement.verticalSpeed > 0.0) {
+			movement.verticalSpeed *= -jump.ceilingRestitution;
+		}
+		
 	}
 	
 	ApplyGravity();
@@ -250,11 +256,11 @@ function GetVelocity () {
 	//return movement.isBeingSteered;
 //}
 
-function IsJumping () {
+function IsJumping() {
 	return jump.jumpingLevel > 0;
 }
 
-function IsTouchingCeiling () {
+function IsTouchingCeiling() {
 	return (movement.collisionFlags & CollisionFlags.CollidedAbove) != 0;
 }
 
