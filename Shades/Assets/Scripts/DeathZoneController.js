@@ -17,4 +17,4 @@ function OnDrawGizmos()
 }
 
 // Require a box collider for the trigger
-@script RequireComponent (BoxCollider)
+@script RequireComponent(BoxCollider)

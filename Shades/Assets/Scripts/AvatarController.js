@@ -8,7 +8,7 @@
 var canControl = true;
 
 // Spawn avatar here if it dies.
-var spawnPoint : Transform;
+var spawnPoint : GameObject;
 
 // Movement Related Variables
 class AvatarControllerMovement {
@@ -72,7 +72,8 @@ class AvatarControllerJumping {
 	// 0 = No
 	// 1 = 1 jump
 	// 2 = double jump
-	@System.NonSerialized
+	
+	//@System.NonSerialized
 	var jumpingLevel = 0;
 	var maxJumpingLevel = 1;
   
@@ -99,15 +100,17 @@ private var controller : CharacterController; // We need this to use our own phy
 //////////////////////////////
 
 // Don't call manually!
-function Awake () {
+function Awake() {
 	// Called before any Start functions and lets us initialize stuff. Always called (but only once) even if object is disabled, so use this for construction.	
 	controller = GetComponent(CharacterController);
 		
 	// Always ignore physics of world avatar is not in. XXX: Not sure if this is the right place to put this code...
 	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("DarkWorld"),LayerMask.NameToLayer("LightWorld"),true);
 	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("LightWorld"),LayerMask.NameToLayer("DarkWorld"),true);
-	
-	//Spawn (); // TODO: Enable this and set a spawn point
+}
+
+function Start() {
+	Spawn();
 }
 
 // Call this whenever you want the character to respawn at the spawn point
@@ -118,7 +121,8 @@ function Spawn () {
 	movement.speed = 0.0;
 	
 	// reset the character's position to the spawnPoint
-	transform.position = spawnPoint.position;
+	transform.position = spawnPoint.transform.position;
+	gameObject.layer = spawnPoint.layer;
 	
 }
 
@@ -128,12 +132,12 @@ function OnDeath () {
 	Spawn();
 }
 
-function ChangeWorld() {
-	if(gameObject.layer == LayerMask.NameToLayer("DarkWorld")){
-		gameObject.layer = LayerMask.NameToLayer("LightWorld");
-	}else{
-		gameObject.layer = LayerMask.NameToLayer("DarkWorld");
-	}
+function ChangeWorldTo(layer : int) {
+	gameObject.layer = layer;
+}
+
+function SetSpawnPointTo(newSpawnPoint : GameObject) {
+	spawnPoint = newSpawnPoint;
 }
 
 function UpdateSmoothedMovementDirection () {	
@@ -173,7 +177,7 @@ function Update() {
 	
 		if (Input.GetButtonDown("Jump")) {
 			// Button Pressed after not being pressed
-			jump.jumpingLevel++;
+
 			jump.lastButtonTime = Time.time;
 			Debug.Log("Jump");
 			if(controller.isGrounded) {
@@ -184,6 +188,8 @@ function Update() {
 				movement.verticalSpeed = movement.jumpForce;
 				//movement.verticalSpeed = CalculateJumpVerticalSpeed(jump.minHeight);
 			}
+			
+			jump.jumpingLevel++;
 		}
 		
 		if (controller.isGrounded) {
@@ -194,12 +200,12 @@ function Update() {
 			movement.horizontalSpeed = Mathf.Lerp(movement.horizontalSpeed, h*movement.walkSpeed*movement.inAirControlAcceleration, curSmooth);
 		}
 		
-		if (movement.verticalSpeed > 0.0) {
-			if (jump.jumpingLevel > 0 && (transform.position.y - jump.lastStartHeight < jump.minHeight)) {
+		if ((movement.verticalSpeed > 0.0) && (jump.jumpingLevel > 0) && (jump.jumpingLevel <= jump.maxJumpingLevel)) {
+			if (transform.position.y - jump.lastStartHeight < jump.minHeight) {
 				movement.verticalSpeed = movement.jumpForce;
 			} else {
 				if (Input.GetButton("Jump") && 
-				(transform.position.y - jump.lastStartHeight < jump.maxHeight)) {
+				(transform.position.y - jump.lastStartHeight < jump.maxHeight*jump.jumpingLevel)) {
 					movement.verticalSpeed = movement.jumpForce;
 				}
 			}
@@ -207,10 +213,7 @@ function Update() {
 		
 	}
 	
-		
 	ApplyGravity();
-	
-	
 	
 	// Save lastPosition for velocity calculation.
 	var lastPosition = transform.position;
@@ -229,7 +232,6 @@ function Update() {
 	movement.velocity = (transform.position - lastPosition) / Time.deltaTime;
 
 }
-
 
 //////////////////////////////
 // Helper Functions START
@@ -276,7 +278,7 @@ function SetControllable (controllable : boolean) {
 //////////////////////////////
 
 // Require a character controller to be attached to the same game object
-@script RequireComponent (CharacterController)
+@script RequireComponent(CharacterController)
 
 // Put the script in the menu
-@script AddComponentMenu ("2D Platformer/Avatar Controller")
+@script AddComponentMenu("2D Platformer/Avatar Controller")
