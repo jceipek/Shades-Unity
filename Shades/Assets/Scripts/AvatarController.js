@@ -99,6 +99,14 @@ class AvatarControllerJumping {
 
 var jump : AvatarControllerJumping;
 
+class AvatarControllerClimbing {
+
+	var climbForce = 20.0;
+
+}
+
+var climb : AvatarControllerClimbing;
+
 private var controller : CharacterController; // We need this to use our own physics while still getting collisions. It will stop us from pushing objects without a separate script, though.
 
 //////////////////////////////
@@ -128,6 +136,8 @@ function Spawn () {
 	
 	// reset the character's position to the spawnPoint
 	transform.position = spawnPoint.transform.position;
+	
+	// Put the character on the correct layer
 	gameObject.layer = spawnPoint.layer;
 	
 }
@@ -195,6 +205,7 @@ function Update() {
 			jump.jumpingLevel++;
 		}
 		
+		// Grounded and in-air side-by-side movement
 		if (controller.isGrounded) {
 			var curSmooth = movement.speedSmoothing * Time.deltaTime;
 			movement.horizontalSpeed = Mathf.Lerp(movement.horizontalSpeed, h*movement.walkSpeed, curSmooth);
@@ -203,6 +214,7 @@ function Update() {
 			movement.horizontalSpeed = Mathf.Lerp(movement.horizontalSpeed, h*movement.walkSpeed*movement.inAirControlAcceleration, curSmooth);
 		}
 		
+		// Jumping
 		if ((movement.verticalSpeed > 0.0) && (jump.jumpingLevel > 0) && (jump.jumpingLevel <= jump.maxJumpingLevel)) {
 			if (transform.position.y - jump.lastStartHeight < jump.minHeight) {
 				movement.verticalSpeed = jump.firstJumpForce;
@@ -214,9 +226,13 @@ function Update() {
 			} 
 		}
 		
+		// Bounce off ceilings
 		if (IsTouchingCeiling() && movement.verticalSpeed > 0.0) {
 			movement.verticalSpeed *= -jump.ceilingRestitution;
 		}
+		
+		CanClimbRight();
+		
 		
 	}
 	
@@ -262,6 +278,14 @@ function IsJumping() {
 
 function IsTouchingCeiling() {
 	return (movement.collisionFlags & CollisionFlags.CollidedAbove) != 0;
+}
+
+function CanClimbRight() {
+	var rightRay : Ray = new Ray(transform.position, Vector3(1.0f, 0.0f, 0.0f));
+	var hit: RaycastHit;
+	if (collider.Raycast(rightRay, hit, 100.0)) {
+		Debug.DrawLine(rightRay.origin, hit.point);
+	}
 }
 
 //function GetDirection () {
