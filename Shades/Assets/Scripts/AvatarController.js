@@ -46,7 +46,7 @@ class AvatarControllerMovement {
 	var velocity : Vector3;
 	
 	@System.NonSerialized
-	var facing : int = 1;
+	var facing : int = 0;
 
 }
 
