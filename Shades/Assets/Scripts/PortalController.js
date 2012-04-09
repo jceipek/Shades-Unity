@@ -6,9 +6,9 @@ var lightTexture : Texture;
 
 function Awake() {
 	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
-		transform.Find("UnityPuppet").renderer.material.mainTexture = lightTexture;
+		renderer.material.mainTexture = lightTexture;
 	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
-		transform.Find("UnityPuppet").renderer.material.mainTexture = darkTexture;
+		renderer.material.mainTexture = darkTexture;
 	}
 }
 
