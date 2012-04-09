@@ -3,6 +3,8 @@ A puzzle platformer in which you move between two parallel worlds. You can only 
 
 An in-progress project for Game Design at Franklin W. Olin College of Engineering
 
+![Shades](https://github.com/jceipek/Shades-Unity/raw/master/Screens/Shades_Screen.png "Shades Screenshot")
+
 ## TODO:
 ### High Priority
 * Two Labels; only physically interact with active one **(DONE)**
