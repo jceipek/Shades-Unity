@@ -8,6 +8,8 @@ ModelImporter:
     7400004: Default Take //// Armature
     7400006: Spin //// Armature
     7400008: GearArmatureAction //// PlatformDark
+    7400010: Default Take //// Platform
+    7400012: Spin //// Platform
   serializedVersion: 10
   materials:
     importMaterials: 1

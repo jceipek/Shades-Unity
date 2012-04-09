@@ -2,12 +2,16 @@
 
 private var boxCollider : BoxCollider;
 
+var triggerSave = false;
+
 // Whoever enters the DeathTrigger gets an OnDeath message sent to them.
 // They don't have to react to it.
 function OnTriggerEnter (other : Collider) {
 	//other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
 	
-	other.gameObject.SendMessage("SetSpawnPointTo", gameObject);
+	if (triggerSave) {
+		other.gameObject.SendMessage("SetSpawnPointTo", gameObject);
+	}
 }
 
 function OnDrawGizmos()
