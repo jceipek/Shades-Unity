@@ -5,22 +5,23 @@ An in-progress project for Game Design at Franklin W. Olin College of Engineerin
 
 ## TODO:
 ### High Priority
-* Two Labels; only physically interact with active one
-* Switch between active label using portal
-* Falling kills you
-* Recovery system (appear close to where die)
+* Two Labels; only physically interact with active one **(DONE)**
+* Switch between active label using portal **(DONE)**
+* Falling kills you **(DONE)**
+* Recovery system (appear close to where die) **(DONE)**
     Implementation: bounding box invisible toggle. When hit, set as spawn point to use on death.
-* Jumping
+* Jumping **(DONE - *could use some work*)**
+* Avatar Static Graphics *(IN PROGRESS)*
 
 ### Medium Priority
 * Climbing
 * Thing that kills you (like spikes or deep water)
 * Avatar walking graphics
 * Avatar jumping graphics
-* A/B platform graphics
+* A/B platform graphics *(IN PROGRESS)*
 * Avatar climbing graphics
 * 1 good puzzle level
-* Music (at least placeholder)
+* Music (at least placeholder) *(IN PROGRESS)*
 
 ### Low Priority
 * Cutscene system
