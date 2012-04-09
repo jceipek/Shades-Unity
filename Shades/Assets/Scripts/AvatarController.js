@@ -9,6 +9,8 @@ var canControl = true;
 
 // Spawn avatar here if it dies.
 var spawnPoint : GameObject;
+var darkTexture : Texture;
+var lightTexture : Texture;
 
 // Movement Related Variables
 class AvatarControllerMovement {
@@ -124,6 +126,12 @@ function Awake() {
 	// Always ignore physics of world avatar is not in. XXX: Not sure if this is the right place to put this code...
 	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("DarkWorld"),LayerMask.NameToLayer("LightWorld"),true);
 	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("LightWorld"),LayerMask.NameToLayer("DarkWorld"),true);
+	
+	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
+		transform.Find("UnityPuppet").renderer.material.mainTexture = lightTexture;
+	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
+		transform.Find("UnityPuppet").renderer.material.mainTexture = darkTexture;
+	}
 }
 
 function Start() {
@@ -143,6 +151,12 @@ function Spawn () {
 	// Put the character on the correct layer
 	gameObject.layer = spawnPoint.layer;
 	
+	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
+		transform.Find("UnityPuppet").renderer.material.mainTexture = lightTexture;
+	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
+		transform.Find("UnityPuppet").renderer.material.mainTexture = darkTexture;
+	}
+	
 }
 
 // Call when died
@@ -153,6 +167,11 @@ function OnDeath () {
 
 function ChangeWorldTo(layer : int) {
 	gameObject.layer = layer;
+	if (layer == LayerMask.NameToLayer("LightWorld")) {
+		transform.Find("UnityPuppet").renderer.material.mainTexture = lightTexture;
+	} else if (layer == LayerMask.NameToLayer("DarkWorld")) {
+		transform.Find("UnityPuppet").renderer.material.mainTexture = darkTexture;
+	}
 }
 
 function SetSpawnPointTo(newSpawnPoint : GameObject) {
