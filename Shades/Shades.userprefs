@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Temp/Compiled-UnlitDoubleSided.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AvatarController.js">
     <Files>
-      <File FileName="Temp/Compiled-UnlitDoubleSided.shader" Line="27" Column="2" />
+      <File FileName="Temp/Compiled-Unlit-Alpha.shader" Line="1" Column="1" />
+      <File FileName="Assets/Shaders/UnlitDoubleSided.shader" Line="16" Column="10" />
+      <File FileName="Assets/Scripts/AvatarController.js" Line="203" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

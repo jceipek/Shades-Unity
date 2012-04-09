@@ -44,6 +44,9 @@ class AvatarControllerMovement {
 	// We will keep track of an approximation of the character's current velocity, so that we return it from GetVelocity() for our camera to use for prediction.
 	@System.NonSerialized
 	var velocity : Vector3;
+	
+	@System.NonSerialized
+	var facing : int = 1;
 
 }
 
@@ -188,6 +191,18 @@ function Update() {
 
 	if (canControl) {
 		var h = Input.GetAxisRaw("Horizontal");
+		
+		if (h > 0.0) {
+			if (movement.facing != 1) {
+				transform.rotation.y = 180;
+			}
+			movement.facing = 1;
+		} else if (h < 0.0) {
+			movement.facing = -1;
+			if (movement.facing != 1) {
+				transform.rotation.y = 0;
+			}
+		}
 	
 		if (Input.GetButtonDown("Jump")) {
 			// Button Pressed after not being pressed
