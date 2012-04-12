@@ -26,7 +26,7 @@ function SetTarget (newTarget : Transform, snap : boolean) {
 	// If there was a target, reset its interpolation value if it had a rigidbody.
 	if  (target) {
 		// Reset the old target's interpolation back to the saved value.
-		targetRigidbody = target.GetComponent (Rigidbody);
+		var targetRigidbody = target.GetComponent (Rigidbody);
 		if  (targetRigidbody)
 			targetRigidbody.interpolation = savedInterpolationSetting;
 	}
@@ -122,7 +122,7 @@ function GetGoalPosition () {
 		targetVelocity = targetRigidbody.velocity;
 	
 	// If we find a PlatformerController on the target, we can access a velocity from that!
-	targetAvatarController = target.GetComponent (AvatarController);
+	var targetAvatarController = target.GetComponent(AvatarController);
 	if (targetAvatarController)
 		targetVelocity = targetAvatarController.GetVelocity ();
 	
