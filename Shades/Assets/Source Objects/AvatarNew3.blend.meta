@@ -5,6 +5,7 @@ ModelImporter:
     4300000: UnityPuppet
     7400000: Default Take //// AvatarNew3
     7400002: Idle //// AvatarNew3
+    7400004: Walking //// AvatarNew3
   serializedVersion: 10
   materials:
     importMaterials: 1

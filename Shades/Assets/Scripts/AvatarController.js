@@ -16,6 +16,8 @@ var lightTexture : Texture;
 class AvatarControllerMovement {
 	// The speed when walking 
 	var walkSpeed = 5.0;
+	@System.NonSerialized
+	var isWalking = false;
 	// Could add more types of speed here if we want (ex: runSpeed, rollerBladeSpeed, etc...)
 
 	var inAirControlAcceleration = 1.0; // Decrease to make the character harder to shift in the air
@@ -241,9 +243,16 @@ function Update() {
 		
 		// Grounded and in-air side-by-side movement
 		if (controller.isGrounded) {
+			
 			var curSmooth = movement.speedSmoothing * Time.deltaTime;
 			movement.horizontalSpeed = Mathf.Lerp(movement.horizontalSpeed, h*movement.walkSpeed, curSmooth);
+			if (Mathf.Abs(movement.horizontalSpeed) > 0.5) {
+				movement.isWalking = true;
+			} else {
+				movement.isWalking = false;
+			}
 		} else {
+			movement.isWalking = false;
 			curSmooth = movement.speedSmoothing * Time.deltaTime;
 			movement.horizontalSpeed = Mathf.Lerp(movement.horizontalSpeed, h*movement.walkSpeed*movement.inAirControlAcceleration, curSmooth);
 		}
@@ -302,9 +311,9 @@ function GetVelocity () {
 }
 
 
-//function IsMoving () {
-	//return movement.isBeingSteered;
-//}
+function IsWalking () {
+	return movement.isWalking;
+}
 
 function IsJumping() {
 	return jump.jumpingLevel > 0;
