@@ -1,13 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlatformerPlayerAnimation.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SignpostController.js">
     <Files>
-      <File FileName="Assets/Scripts/CameraScrolling.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SignpostController.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AvatarController.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PortalController.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/LevelAttributes.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlatformerPlayerAnimation.js" Line="48" Column="57" />
+      <File FileName="Assets/Scripts/LevelFadeIn.js" Line="7" Column="3" />
+      <File FileName="Assets/Scripts/SignpostController.js" Line="14" Column="27" />
+      <File FileName="Assets/Scripts/PortalController.js" Line="24" Column="2" />
+      <File FileName="Assets/Scripts/AvatarController.js" Line="356" Column="16" />
+      <File FileName="Assets/Scripts/CameraScrolling.js" Line="55" Column="61" />
+      <File FileName="Assets/Scripts/CameraFocus.js" Line="57" Column="120" />
+      <File FileName="Assets/Scripts/AvatarPlayerAnimation.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SpawnPointController.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

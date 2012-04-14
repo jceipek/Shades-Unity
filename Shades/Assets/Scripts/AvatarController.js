@@ -345,6 +345,7 @@ function Reset () {
 
 function SetControllable (controllable : boolean) {
 	canControl = controllable;
+	movement.horizontalSpeed = 0.0;
 }
 
 //////////////////////////////
