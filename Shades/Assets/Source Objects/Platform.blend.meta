@@ -10,6 +10,7 @@ ModelImporter:
     7400008: GearArmatureAction //// PlatformDark
     7400010: Default Take //// Platform
     7400012: Spin //// Platform
+    7400014: GearArmatureAction_001 //// Platform
   serializedVersion: 10
   materials:
     importMaterials: 1
