@@ -1,15 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SignpostController.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PortalController.js">
     <Files>
-      <File FileName="Assets/Scripts/LevelFadeIn.js" Line="7" Column="3" />
-      <File FileName="Assets/Scripts/SignpostController.js" Line="14" Column="27" />
-      <File FileName="Assets/Scripts/PortalController.js" Line="24" Column="2" />
-      <File FileName="Assets/Scripts/AvatarController.js" Line="356" Column="16" />
-      <File FileName="Assets/Scripts/CameraScrolling.js" Line="55" Column="61" />
-      <File FileName="Assets/Scripts/CameraFocus.js" Line="57" Column="120" />
-      <File FileName="Assets/Scripts/AvatarPlayerAnimation.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SpawnPointController.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LevelFadeIn.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SignpostController.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/GameAudioController.js" Line="14" Column="19" />
+      <File FileName="Assets/Scripts/PortalController.js" Line="10" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
