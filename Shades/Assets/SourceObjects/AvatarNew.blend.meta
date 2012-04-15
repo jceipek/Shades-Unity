@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 80f2b5eade4754536b920d6a35d84de2
+guid: e1ea3de02fa8c4a1a8efb84e2d198cba
 ModelImporter:
   fileIDToRecycleName:
     4300000: UnityPuppet
-    7400000: Default Take //// AvatarNew3
-    7400002: Idle //// AvatarNew3
-    7400004: Walking //// AvatarNew3
+    7400000: Default Take //// AvatarNew
+    7400002: Idle //// AvatarNew
+    7400004: Walking //// AvatarNew
   serializedVersion: 10
   materials:
     importMaterials: 1
@@ -14,12 +14,12 @@ ModelImporter:
   animations:
     generateAnimations: 3
     bakeSimulation: 0
-    splitAnimations: 0
+    splitAnimations: 1
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
-    animationWrapMode: 2
+    animationWrapMode: 0
     clipAnimations: []
   meshes:
     lODScreenPercentages: []
@@ -43,20 +43,20 @@ ModelImporter:
     //RootNode:
       data:
         first: 1
-        second: b0860100
+        second: a4860100
       data:
         first: 4
-        second: 901a0600
+        second: 841a0600
       data:
         first: 111
         second: 605fa900
     Arm_1_L:
       data:
         first: 1
-        second: bc860100
+        second: c2860100
       data:
         first: 4
-        second: 9c1a0600
+        second: a21a0600
     Arm_1_R:
       data:
         first: 1
@@ -74,101 +74,108 @@ ModelImporter:
     Arm_2_R:
       data:
         first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    AvatarArmature:
+      data:
+        first: 1
         second: aa860100
       data:
         first: 4
         second: 8a1a0600
-    Armature:
+    Body:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    Cloak_Back:
       data:
         first: 1
         second: c0860100
       data:
         first: 4
         second: a01a0600
-    Body:
-      data:
-        first: 1
-        second: be860100
-      data:
-        first: 4
-        second: 9e1a0600
-    Cloak_Back:
-      data:
-        first: 1
-        second: ba860100
-      data:
-        first: 4
-        second: 9a1a0600
     Cloak_Bottom:
-      data:
-        first: 1
-        second: a0860100
-      data:
-        first: 4
-        second: 801a0600
-    Cloak_Top:
-      data:
-        first: 1
-        second: a2860100
-      data:
-        first: 4
-        second: 821a0600
-    Hair:
-      data:
-        first: 1
-        second: a4860100
-      data:
-        first: 4
-        second: 841a0600
-    Head:
-      data:
-        first: 1
-        second: a8860100
-      data:
-        first: 4
-        second: 881a0600
-    Hood:
-      data:
-        first: 1
-        second: a6860100
-      data:
-        first: 4
-        second: 861a0600
-    Leg_1_L:
-      data:
-        first: 1
-        second: b8860100
-      data:
-        first: 4
-        second: 981a0600
-    Leg_1_R:
       data:
         first: 1
         second: b4860100
       data:
         first: 4
         second: 941a0600
-    Leg_2_L:
+    Cloak_Top:
       data:
         first: 1
         second: b6860100
       data:
         first: 4
         second: 961a0600
-    Leg_2_R:
+    Hair:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+    Head:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    Hood:
       data:
         first: 1
         second: b2860100
       data:
         first: 4
         second: 921a0600
-    UnityPuppet:
+    Leg_1_L:
       data:
         first: 1
-        second: c2860100
+        second: be860100
       data:
         first: 4
-        second: a21a0600
+        second: 9e1a0600
+    Leg_1_R:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+    Leg_2_L:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    Leg_2_R:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    Root:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
       data:
         first: 137
         second: a00bd100
+    UnityPuppet:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
