@@ -5,7 +5,7 @@ var animSpeed : float = 1.0f; // How fast does the lever animation play?
 var activateWithActionButton = true; // Can the lever be activated by the player pressing the Action button while in range?
 var canDeactivate = true; // Can the lever's position be reset once it has been pushed away from its start position?
 
-var targetPlatform : LeverTarget;
+var targetPlatform : PlatformController;
 
 private var avatarInBounds = false; // Keeps track of whether avatar is in range of lever
 private var originalState; // What state did the lever start out in? Used by canDeactivate
@@ -56,7 +56,7 @@ function Switch() {
 	state = !state;
 }
 
-function OnDrawGizmos()
+function OnDrawGizmosSelected()
 {
 	//boxCollider = GetComponent(BoxCollider);
 	Gizmos.color = Color.blue;
