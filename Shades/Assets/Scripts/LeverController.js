@@ -4,6 +4,14 @@ var state : boolean = false; // In what state does the lever start? Deactivated 
 var animSpeed : float = 1.0f; // How fast does the lever animation play?
 var activateWithActionButton : boolean = true; // Can the lever be activated by the player pressing the Action button while in range?
 var canDeactivate : boolean = true; // Can the lever's position be reset once it has been pushed away from its start position?
+var simpleToggleBehavior : boolean = true; // Does the lever just toggle the state of the item it's connected to?
+										   // If not, it behaves as follows:
+										   // Lever ON Object ON -> Object OFF
+										   // Lever OFF Object ON -> No Change
+										   // Lever ON Object OFF -> No Change
+										   // Lever OFF Object OFF -> Object ON
+										   // Object ON = Object's initial state
+var syncWithTarget : boolean = true; // If the Object changes due to an outside force, toggle the lever automatically
 
 var targetPlatform : PlatformController;
 
@@ -24,6 +32,8 @@ function Awake() {
 	var left = animation["Left"];
 	left.speed *= animSpeed;
 	right.speed *= animSpeed;
+	
+	targetPlatform.SendMessage("AddAgent", gameObject);
 }
 
 function OnTriggerEnter(other : Collider) {
@@ -46,7 +56,19 @@ function Update() {
 	}
 }
 
+// Called as consequence of outside force
 function Switch() {
+	_Switch();
+	
+	if (simpleToggleBehavior) {
+		targetPlatform.gameObject.SendMessage("LeverToggledBy", gameObject.GetInstanceID());
+	} else {
+		targetPlatform.gameObject.SendMessage("LeverFlippedInitialToBy", new Array(originalState, state, gameObject.GetInstanceID()));
+	}	
+}
+
+// Called whenever lever state is to be changed without informing targets
+private function _Switch() {
 	if (state) {
 		animation.CrossFade("Left");
 	} else {
@@ -54,8 +76,14 @@ function Switch() {
 	}
 	
 	state = !state;
-	
-	targetPlatform.gameObject.SendMessage("LeverFlippedInitialTo", new Array(originalState, state));
+}
+
+function TargetChangedByAgent(agentID : int) {
+	if (gameObject.GetInstanceID() != agentID && syncWithTarget) {
+		if (syncWithTarget) {
+			_Switch();
+		}
+	}
 }
 
 function OnDrawGizmosSelected()

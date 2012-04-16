@@ -3,7 +3,8 @@
 var darkMaterial : Material;
 var lightMaterial : Material;
 
-private var startingWorld;
+private var startingWorld : int;
+private var connectedAgents : Array = new Array();
 
 function Update() {
 
@@ -27,9 +28,14 @@ private function CorrectMaterial() {
 	}
 }
 
-function LeverFlippedInitialTo(initNewState: Array) {
+function AddAgent(agent) {
+	connectedAgents.Add(agent);
+}
+
+function LeverFlippedInitialToBy(initNewState: Array) {
 	var initialState : boolean = initNewState[0];
 	var newState : boolean = initNewState[1];
+	var agentID : int = initNewState[2];
 	
 	var layerToChangeTo : int;
 	if (initialState != newState) {
@@ -43,5 +49,20 @@ function LeverFlippedInitialTo(initNewState: Array) {
 	}
 	if (gameObject.layer != layerToChangeTo) {
 		ChangeWorldTo(layerToChangeTo);
+		for (var agent:GameObject in connectedAgents) {
+			agent.SendMessage("TargetChangedByAgent", agentID);
+		}
+		
+	}
+}
+
+function LeverToggledBy(agentID : int) {
+	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
+		ChangeWorldTo(LayerMask.NameToLayer("DarkWorld"));
+	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
+		ChangeWorldTo(LayerMask.NameToLayer("LightWorld"));
+	}
+	for (var agent:GameObject in connectedAgents) {
+		agent.SendMessage("TargetChangedByAgent", agentID);
 	}
 }
