@@ -1,11 +1,11 @@
 #pragma strict
 
-var state = false; // In what state does the lever start? Deactivated is Left; Activated is Right
+var state : boolean = false; // In what state does the lever start? Deactivated is Left; Activated is Right
 var animSpeed : float = 1.0f; // How fast does the lever animation play?
 var activateWithActionButton : boolean = true; // Can the lever be activated by the player pressing the Action button while in range?
 var canDeactivate : boolean = true; // Can the lever's position be reset once it has been pushed away from its start position?
 
-var targetPlatform : LeverTarget;
+var targetPlatform : PlatformController;
 
 private var avatarInBounds = false; // Keeps track of whether avatar is in range of lever
 private var originalState : boolean; // What state did the lever start out in? Used by canDeactivate
@@ -55,10 +55,10 @@ function Switch() {
 	
 	state = !state;
 	
-	targetPlatform.gameObject.SendMessage("LeverFlippedInitialTo", originalState, state);
+	targetPlatform.gameObject.SendMessage("LeverFlippedInitialTo", [originalState, state]);
 }
 
-function OnDrawGizmos()
+function OnDrawGizmosSelected()
 {
 	//boxCollider = GetComponent(BoxCollider);
 	Gizmos.color = Color.blue;
