@@ -16,9 +16,11 @@ function OnTriggerEnter(other : Collider) {
 }
 
 function Update(){
-  if(triggered && Time.time-StartTime >= 1){
-    Application.LoadLevel(level);
-  }
+	if(triggered && Time.time-StartTime >= 1){
+		PlayerPrefs.SetString("Level", level);
+		PlayerPrefs.Save();
+  		Application.LoadLevel(level);
+	}
 }
 
 function OnGUI(){
