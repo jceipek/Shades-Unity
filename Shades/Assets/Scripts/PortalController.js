@@ -4,7 +4,7 @@ function Awake() {
 
 }
 
-function OnTriggerEnter (other : Collider) {
+function OnTriggerEnter(other : Collider) {
 	Debug.Log("hit portal");
 	
 	GetComponent(AudioSource).Play();
@@ -14,7 +14,6 @@ function OnTriggerEnter (other : Collider) {
 	} else {
 		other.gameObject.SendMessage("ChangeWorldTo", LayerMask.NameToLayer("DarkWorld"));
 	}
-
 }
 
 // Require a box collider for the trigger

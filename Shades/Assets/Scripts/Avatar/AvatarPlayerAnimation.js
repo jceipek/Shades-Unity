@@ -62,11 +62,11 @@ function Update () {
 		//animation["Walking"].speed = animSpeed.walkSpeedStd * animSpeed.walkSpeedModifier;
 		if (controller.IsWalking())
 		{
-			animation.CrossFade ("Walking");
+			animation.CrossFade("Walking");
 		}
 		// Go back to idle when not moving
 		else {
-			animation.CrossFade ("Idle");//, 0.5);
+			animation.CrossFade("Idle");//, 0.5);
 		}
 	//}
 	// When falling off an edge, after hangTimeUntilFallingAnimation we will fade towards the ledgeFall animation
