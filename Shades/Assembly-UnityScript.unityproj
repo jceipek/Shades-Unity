@@ -49,11 +49,14 @@
      <Compile Include="Assets\Scripts\Avatar\CameraTargetAttributes.js" />
      <Compile Include="Assets\Scripts\CameraFocus.js" />
      <Compile Include="Assets\Scripts\CameraScrolling.js" />
+     <Compile Include="Assets\Scripts\ContinueGameController.js" />
      <Compile Include="Assets\Scripts\DeathZoneController.js" />
      <Compile Include="Assets\Scripts\GameAudioController.js" />
      <Compile Include="Assets\Scripts\LevelAttributes.js" />
      <Compile Include="Assets\Scripts\LevelFadeIn.js" />
      <Compile Include="Assets\Scripts\LeverController.js" />
+     <Compile Include="Assets\Scripts\MenuOptionController.js" />
+     <Compile Include="Assets\Scripts\NewGameController.js" />
      <Compile Include="Assets\Scripts\ParallaxScrollController.js" />
      <Compile Include="Assets\Scripts\PlatformController.js" />
      <Compile Include="Assets\Scripts\PortalController.js" />

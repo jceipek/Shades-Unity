@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 12ea09eb35479435e9800fe46be7fafd
+guid: be4af81c735684e268e8a1328d29108a
 ModelImporter:
   fileIDToRecycleName:
     4300000: Plane
-    7400000: Default Take //// EndText
+    7400000: Default Take //// NewGameText
   serializedVersion: 10
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
-    generateAnimations: 3
+    generateAnimations: 0
     bakeSimulation: 0
     splitAnimations: 1
     animationCompression: 1
@@ -51,6 +51,3 @@ ModelImporter:
       data:
         first: 33
         second: a05a3200
-      data:
-        first: 111
-        second: 605fa900
