@@ -2,15 +2,15 @@
 
 var state = false; // In what state does the lever start? Deactivated is Left; Activated is Right
 var animSpeed : float = 1.0f; // How fast does the lever animation play?
-var activateWithActionButton = true; // Can the lever be activated by the player pressing the Action button while in range?
-var canDeactivate = true; // Can the lever's position be reset once it has been pushed away from its start position?
+var activateWithActionButton : boolean = true; // Can the lever be activated by the player pressing the Action button while in range?
+var canDeactivate : boolean = true; // Can the lever's position be reset once it has been pushed away from its start position?
 
 var targetPlatform : LeverTarget;
 
 private var avatarInBounds = false; // Keeps track of whether avatar is in range of lever
-private var originalState; // What state did the lever start out in? Used by canDeactivate
+private var originalState : boolean; // What state did the lever start out in? Used by canDeactivate
 
-function Awake () {
+function Awake() {
 	originalState = state;
 	if (!state) {
 		animation["Left"].time = 0.0;
@@ -38,7 +38,7 @@ function OnTriggerExit(other : Collider) {
 	}
 }
 
-function Update () {
+function Update() {
 	if (activateWithActionButton && avatarInBounds && Input.GetButtonDown("Action")) {
 		if (canDeactivate || (state == originalState)) {
 			Switch();
@@ -54,6 +54,8 @@ function Switch() {
 	}
 	
 	state = !state;
+	
+	targetPlatform.gameObject.SendMessage("LeverFlippedInitialTo", originalState, state);
 }
 
 function OnDrawGizmos()

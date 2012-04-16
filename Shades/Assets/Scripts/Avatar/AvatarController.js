@@ -129,11 +129,7 @@ function Awake() {
 	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("DarkWorld"),LayerMask.NameToLayer("LightWorld"),true);
 	Physics.IgnoreLayerCollision(LayerMask.NameToLayer("LightWorld"),LayerMask.NameToLayer("DarkWorld"),true);
 	
-	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
-		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = lightTexture;
-	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
-		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = darkTexture;
-	}
+	CorrectTexture();
 }
 
 function Start() {
@@ -153,11 +149,7 @@ function Spawn () {
 	// Put the character on the correct layer
 	gameObject.layer = spawnPoint.layer;
 	
-	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
-		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = lightTexture;
-	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
-		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = darkTexture;
-	}
+	CorrectTexture();
 	
 }
 
@@ -169,11 +161,7 @@ function OnDeath () {
 
 function ChangeWorldTo(layer : int) {
 	gameObject.layer = layer;
-	if (layer == LayerMask.NameToLayer("LightWorld")) {
-		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = lightTexture;
-	} else if (layer == LayerMask.NameToLayer("DarkWorld")) {
-		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = darkTexture;
-	}
+	CorrectTexture();
 }
 
 function SetSpawnPointTo(newSpawnPoint : GameObject) {
@@ -328,6 +316,14 @@ function CanClimbRight() {
 	var hit: RaycastHit;
 	if (collider.Raycast(rightRay, hit, 100.0)) {
 		Debug.DrawLine(rightRay.origin, hit.point);
+	}
+}
+
+private function CorrectTexture() {
+	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
+		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = lightTexture;
+	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
+		transform.Find("AvatarArmature").Find("Root").renderer.material.mainTexture = darkTexture;
 	}
 }
 
