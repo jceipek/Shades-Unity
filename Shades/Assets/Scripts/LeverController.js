@@ -55,7 +55,7 @@ function Switch() {
 	
 	state = !state;
 	
-	targetPlatform.gameObject.SendMessage("LeverFlippedInitialTo", [originalState, state]);
+	targetPlatform.gameObject.SendMessage("LeverFlippedInitialTo", new Array(originalState, state));
 }
 
 function OnDrawGizmosSelected()

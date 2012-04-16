@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlatformController.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LeverController.js">
     <Files>
-      <File FileName="Assets/Scripts/LeverController.js" Line="58" Column="87" />
+      <File FileName="Assets/Scripts/LeverController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlatformController.js" Line="32" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>

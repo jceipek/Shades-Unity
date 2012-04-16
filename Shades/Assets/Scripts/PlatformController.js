@@ -1,7 +1,7 @@
 #pragma downcast
 
-var darkTexture : Texture;
-var lightTexture : Texture;
+var darkMaterial : Material;
+var lightMaterial : Material;
 
 private var startingWorld;
 
@@ -11,19 +11,19 @@ function Update() {
 
 function Awake() {
 	startingWorld = gameObject.layer;
-	CorrectTexture();
+	CorrectMaterial();
 }
 
 function ChangeWorldTo(layer : int) {
 	gameObject.layer = layer;
-	CorrectTexture();
+	CorrectMaterial();
 }
 
-private function CorrectTexture() {
+private function CorrectMaterial() {
 	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
-		transform.Find("PlatformObj").renderer.material.mainTexture = lightTexture;
+		transform.Find("PlatformObj").renderer.material = lightMaterial;
 	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
-		transform.Find("PlatformObj").renderer.material.mainTexture = darkTexture;
+		transform.Find("PlatformObj").renderer.material = darkMaterial;
 	}
 }
 
