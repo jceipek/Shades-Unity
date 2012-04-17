@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\PortalController.js" />
      <Compile Include="Assets\Scripts\SignpostController.js" />
      <Compile Include="Assets\Scripts\SpawnPointController.js" />
+     <Compile Include="Assets\Scripts\TimedDeathController.js" />
      <None Include="Assets\Shaders\UnlitDoubleSided.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

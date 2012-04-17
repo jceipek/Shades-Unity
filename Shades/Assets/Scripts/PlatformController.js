@@ -3,6 +3,9 @@
 var darkMaterial : Material;
 var lightMaterial : Material;
 
+var darkCrumbleObject : Transform;
+var lightCrumbleObject : Transform;
+
 private var startingWorld : int;
 private var connectedAgents : Array = new Array();
 
@@ -66,3 +69,23 @@ function LeverToggledBy(agentID : int) {
 		agent.SendMessage("TargetChangedByAgent", agentID);
 	}
 }
+
+function ImpactAt(point : Vector3) {
+	point.z += 1.0;
+	point.y -= 1.0;
+	var boxCollider : BoxCollider = GetComponent(BoxCollider);
+	if (point.x < boxCollider.bounds.min.x + 1.0f) {
+		point.x += 1.0;	
+	} else if (point.x > boxCollider.bounds.max.x - 1.0f) {
+		point.x -= 1.0;	
+	}
+	if (gameObject.layer == LayerMask.NameToLayer("LightWorld")) {
+		Instantiate(lightCrumbleObject, point, Quaternion.identity);
+	} else if (gameObject.layer == LayerMask.NameToLayer("DarkWorld")) {
+		Instantiate(darkCrumbleObject, point, Quaternion.identity);
+	}
+	
+}
+
+// Require a box collider for the jumping boundaries
+@script RequireComponent(BoxCollider)

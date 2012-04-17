@@ -51,6 +51,9 @@ class AvatarControllerMovement {
 	
 	@System.NonSerialized
 	var facing : int = 0;
+	
+	@System.NonSerialized
+	var falling : boolean = false;
 
 }
 
@@ -178,6 +181,15 @@ function ApplyJumping () {
 	
 }
 
+function OnControllerColliderHit (hit : ControllerColliderHit) {
+		if (movement.falling && hit.moveDirection.y < 0.0) {
+			movement.falling = false;
+			Debug.Log("Landed");
+			hit.collider.gameObject.SendMessage("ImpactAt", hit.point, SendMessageOptions.DontRequireReceiver);
+		}
+
+}
+
 function ApplyGravity () {
 	if (controller.isGrounded && movement.verticalSpeed <= 0.0) {
 		// Apply constant gravity when touching the ground, as long as we are not
@@ -188,8 +200,12 @@ function ApplyGravity () {
 	} else {
 		// Pull down the avatar with gravity.
 		movement.verticalSpeed -= movement.gravity;
+		if (!movement.falling) {
+			movement.falling = true;
+		}
 	}
 
+	// Don't fall too fast! Can be used for a "floaty" effect.
 	if (movement.verticalSpeed < -movement.terminalVelocity) {
 		movement.verticalSpeed = -movement.terminalVelocity;
 	}
@@ -217,9 +233,7 @@ function Update() {
 			// Button Pressed after not being pressed
 
 			jump.lastButtonTime = Time.time;
-			Debug.Log("Jump");
 			if(controller.isGrounded) {
-				Debug.Log("Grounded");
 				// Initiate jump from ground
 				jump.lastStartHeight = transform.position.y;
 				jump.jumpingLevel = 0;
