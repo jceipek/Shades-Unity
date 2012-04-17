@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SignpostController.js">
     <Files>
-      <File FileName="Assets/Scripts/SignpostController.js" Line="14" Column="32" />
+      <File FileName="Assets/Scripts/SignpostController.js" Line="14" Column="1" />
       <File FileName="Assets/Scripts/TimedDeathController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/LevelFadeIn.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameMusicController.js" Line="31" Column="25" />
+      <File FileName="Assets/Scripts/GameMusicController.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

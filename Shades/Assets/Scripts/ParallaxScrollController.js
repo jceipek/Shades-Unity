@@ -3,8 +3,8 @@
 private var offset : float;
 var sensitivity : float = 0.8;
 
-function Start () {
-	offset = transform.position.x;
+function Awake () {
+	offset = Camera.main.transform.position.x-transform.position.x;
 }
 
 function Update () {
