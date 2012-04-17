@@ -51,7 +51,7 @@
      <Compile Include="Assets\Scripts\CameraScrolling.js" />
      <Compile Include="Assets\Scripts\ContinueGameController.js" />
      <Compile Include="Assets\Scripts\DeathZoneController.js" />
-     <Compile Include="Assets\Scripts\GameAudioController.js" />
+     <Compile Include="Assets\Scripts\GameMusicController.js" />
      <Compile Include="Assets\Scripts\LevelAttributes.js" />
      <Compile Include="Assets\Scripts\LevelFadeIn.js" />
      <Compile Include="Assets\Scripts\LeverController.js" />

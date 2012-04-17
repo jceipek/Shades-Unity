@@ -5,6 +5,25 @@ enum Fade {In, Out}
 var fadeInTime = 4.0;
 var fadeOutTime = 1.0;
 
+function Awake() {
+    // see if we've got menu music still playing
+    //var menuMusic : GameObject = GameObject.Find("MenuMusic");
+    //if (menuMusic) {
+        // kill menu music
+    //    Destroy(menuMusic);
+    //}
+    // make sure we survive going to different scenes
+    var gameMusics : GameObject[] = GameObject.FindGameObjectsWithTag("Music");
+    for (var gameMusic : GameObject in gameMusics) {
+    	if (gameMusic.GetInstanceID() != gameObject.GetInstanceID()) {
+       		//kill game music
+			Destroy(gameObject);
+        } 
+    }
+
+    DontDestroyOnLoad(gameObject);
+}
+
 function OnLevelWasLoaded(){
 	FadeAudio(fadeInTime, Fade.In);
 }

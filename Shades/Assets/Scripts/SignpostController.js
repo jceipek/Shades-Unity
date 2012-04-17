@@ -11,7 +11,7 @@ function OnTriggerEnter(other : Collider) {
 		other.gameObject.SendMessage ("SetControllable", false);
 		triggered = true;
 		StartTime = Time.time;
-		GameObject.FindWithTag("MainCamera").SendMessage("SwitchLevel");
+		GameObject.FindWithTag("Music").SendMessage("SwitchLevel");
 	}
 }
 
