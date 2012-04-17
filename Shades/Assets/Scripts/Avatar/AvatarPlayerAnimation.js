@@ -9,6 +9,8 @@
 // Adjusts after how long the falling animation will be 
 var hangTimeUntilFallingAnimation = 0.05;
 
+
+
 //private var jumping = false;
 
 class AvatarAnimationSpeed {
@@ -19,6 +21,12 @@ class AvatarAnimationSpeed {
 
 }
 var animSpeed : AvatarAnimationSpeed;
+
+class SoundClips {
+	var walking : AudioClip;
+
+}
+var sounds : SoundClips;
 
 function Start () {
 	animation.Stop();
@@ -51,10 +59,13 @@ function Start () {
 	var walk = animation["Walking"];
 	//animSpeed.walkSpeedStd = walk.speed;
 	walk.speed *= animSpeed.walkSpeedModifier;
+
 }
 
 function Update () {
 	var controller : AvatarController = GetComponent(AvatarController);
+
+	var effect : AudioSource = GetComponent(AudioSource);
 
 	// We are not falling off the edge right now
 	//if (controller.GetHangTime() < hangTimeUntilFallingAnimation) {
@@ -63,10 +74,17 @@ function Update () {
 		if (controller.IsWalking())
 		{
 			animation.CrossFade("Walking");
+			if (!effect.isPlaying || effect.clip != sounds.walking) {
+				effect.clip = sounds.walking;
+				effect.volume = 1.0f;
+				effect.Play();
+			}
 		}
 		// Go back to idle when not moving
 		else {
 			animation.CrossFade("Idle");//, 0.5);
+			FadeAudio(1.0f, Fade.Out);
+			effect.Stop();
 		}
 	//}
 	// When falling off an edge, after hangTimeUntilFallingAnimation we will fade towards the ledgeFall animation
@@ -85,3 +103,31 @@ function Update () {
 //	animation.Play ("jumpLand");
 //	animation.Blend ("jumpLand", 0);
 //}
+
+private function FadeAudio (timer : float, fadeType : Fade) {
+
+    var start = fadeType == Fade.In? 0.0 : 1.0;
+
+    var end = fadeType == Fade.In? 1.0 : 0.0;
+
+	var effect : AudioSource = GetComponent(AudioSource);
+
+    var i = 0.0;
+
+    var step = 1.0/timer;
+
+ 
+
+    while (i <= 1.0) {
+
+        i += step * Time.deltaTime;
+
+        effect.volume = Mathf.Lerp(start, end, i);
+
+        yield;
+
+    }
+    
+    effect.Stop();
+
+}

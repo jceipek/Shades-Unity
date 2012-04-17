@@ -29,42 +29,6 @@ function Awake () {
 		targets[i].gameObject.SendMessage ("SetControllable", (i == 0), SendMessageOptions.DontRequireReceiver);
 }
 
-private var windowRect = Rect (20, 20, 250, 50);
-// Make the onscreen GUI to let the player switch control between Lerpz and the spaceship.
-function OnGUI () {
-	// Make a popup window
-	windowRect = GUILayout.Window (0, windowRect, DoControlsWindow, "Controls");
-	
-	// The window can be dragged around by the users - make sure that it doesn't go offscreen.
-	windowRect.x = Mathf.Clamp (windowRect.x, 0.0, Screen.width - windowRect.width);
-	windowRect.y = Mathf.Clamp (windowRect.y, 0.0, Screen.height - windowRect.height);
-}
-
-// Make the contents of the window
-function DoControlsWindow (windowID : int) {
-	// Make the window be draggable in the top 20 pixels.
-	GUI.DragWindow (Rect (0,0, System.Decimal.MaxValue, 20));
-	
-	GUILayout.Label ("Shades PreAlpha Test Level:");
-
-	// Let the player select the character
-	selected = GUILayout.Toolbar (selected, targetButtonNames);
-
-	// If the user has selected a new character, we'll send new SetControllable messages to turn on the other character. 
-	// Then we'll change who the CameraScrolling script is tracking.
-	if (GUI.changed && targets[selected] != cameraScrolling.GetTarget ()) {
-		targets[selected].gameObject.SendMessage ("SetControllable", true, SendMessageOptions.DontRequireReceiver);
-		cameraScrolling.GetTarget ().gameObject.SendMessage ("SetControllable", false, SendMessageOptions.DontRequireReceiver);
-		cameraScrolling.SetTarget (targets[selected]);
-	}
-	
-	// Show a different instruction label depending on what was selected above.
-	switch (selected) {
-		case 0:
-			GUILayout.Label ("Instructions:\nUse the a and d keys to move and w to jump. Alternatively, move with the arrow keys and jump with the space bar..");
-		break;
-	}
-}
 
 // Ensure there is a CameraScrolling script attached to the same GameObject, as this script
 // relies on it.

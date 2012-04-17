@@ -24,16 +24,16 @@ function Awake() {
     DontDestroyOnLoad(gameObject);
 }
 
-function OnLevelWasLoaded(){
+function OnLevelWasLoaded() {
 	FadeAudio(fadeInTime, Fade.In);
 }
 
 function SwitchLevel() {
-	var audio : AudioSource = GetComponent(AudioSource);
+	
 	FadeAudio(fadeOutTime, Fade.Out);
 }
 
-function FadeAudio (timer : float, fadeType : Fade) {
+private function FadeAudio (timer : float, fadeType : Fade) {
 
     var start = fadeType == Fade.In? 0.0 : 1.0;
 
@@ -44,7 +44,8 @@ function FadeAudio (timer : float, fadeType : Fade) {
     var step = 1.0/timer;
 
  
-
+	var audio : AudioSource = GetComponent(AudioSource);
+    
     while (i <= 1.0) {
 
         i += step * Time.deltaTime;
