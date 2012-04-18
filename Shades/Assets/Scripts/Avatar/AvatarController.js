@@ -1,5 +1,8 @@
 #pragma strict
 
+import System.Collections.Generic;
+
+
 //////////////////////////////
 // Variable Defs START
 //////////////////////////////
@@ -12,7 +15,10 @@ var spawnPoint : GameObject;
 var darkTexture : Texture;
 var lightTexture : Texture;
 
-var mobileDeadZoneWidth = 2.0f;
+var mobileDeadZoneWidth : float  = 2.0f;
+var mobileJumpSensitivity : float  = 150.0f;
+
+var touchHistory : Dictionary.<int, List.<Touch> > = new Dictionary.<int, List.<Touch> >();
 
 // Movement Related Variables
 class AvatarControllerMovement {
@@ -107,6 +113,10 @@ class AvatarControllerJumping {
 	// the height we jumped from (Used to determine for how long to apply extra jump power after jumping.)
 	@System.NonSerialized
 	var lastStartHeight = 0.0;
+	
+	var maxMobileTimer : float = 10000.0f;
+	@System.NonSerialized
+	var mobileTimer : float = 0.0f; // Used for high jumps on Mobile
 }
 
 var jump : AvatarControllerJumping;
@@ -224,18 +234,42 @@ function Update() {
 			var ray : Ray = Camera.main.ScreenPointToRay(touch.position);
 
 
-				var offsetFromAvatar : float = ray.origin.x - transform.position.x;
-				if (offsetFromAvatar < -mobileDeadZoneWidth) {
-					h = -1.0f;
-				} else if (offsetFromAvatar > mobileDeadZoneWidth) {
-					h = 1.0f;
-				} else {
-					h = 0.0f;
-				}
+			var offsetFromAvatar : float = ray.origin.x - transform.position.x;
+			if (offsetFromAvatar < -mobileDeadZoneWidth) {
+				h = -1.0f;
+			} else if (offsetFromAvatar > mobileDeadZoneWidth) {
+				h = 1.0f;
+			} else {
+				h = 0.0f;
+			}
+			
+			if (!touchHistory.ContainsKey(touch.fingerId)) {
+				var newList : List.<Touch> = new List.<Touch>();
+				touchHistory.Add(touch.fingerId, newList);
+			}
+			touchHistory[touch.fingerId].Add(touch);
+			if (touchHistory[touch.fingerId].Count > 5) {
+				touchHistory[touch.fingerId].RemoveAt(0);
+			}
 				
 			if (touch.phase == TouchPhase.Ended) {
-				jumpPressed = true;
+				var delta = touch.position - touchHistory[touch.fingerId][0].position;
+				
+				Debug.Log("Delta:");
+				Debug.Log(delta.magnitude.ToString("F10"));
+				
+				if (delta.magnitude > mobileJumpSensitivity) {
+					jumpPressed = true;
+					jump.maxMobileTimer = Mathf.Lerp(0.0f, jump.maxMobileTimer, delta.magnitude/mobileJumpSensitivity);
+				}
+				
+				touchHistory.Remove(touch.fingerId);
 			}
+			
+			if (touch.phase == TouchPhase.Canceled) {
+				touchHistory.Remove(touch.fingerId);
+			}
+			
         	//var hit : RaycastHit;
         	//if (Physics.Raycast (ray, hit, 100.0f)) {
             //	hit.transform.SendMessage("Clicked");
@@ -289,9 +323,10 @@ function Update() {
 		if ((movement.verticalSpeed > 0.0) && (jump.jumpingLevel > 0) && (jump.jumpingLevel <= jump.maxJumpingLevel)) {
 			if (transform.position.y - jump.lastStartHeight < jump.minHeight) {
 				movement.verticalSpeed = jump.firstJumpForce;
-			} else if (Input.GetButton("Jump") && 
+			} else if ((Input.GetButton("Jump") || jump.mobileTimer > 0.0f) && 
 				(transform.position.y - jump.lastStartHeight < jump.maxHeight*jump.jumpingLevel)) {
 					movement.verticalSpeed = jump.secondJumpForce;
+					jump.mobileTimer -= Time.deltaTime;
 			} else {
 				movement.verticalSpeed *= jump.stickiness;
 			} 

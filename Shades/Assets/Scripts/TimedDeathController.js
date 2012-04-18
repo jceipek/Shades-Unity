@@ -1,6 +1,6 @@
 #pragma strict
 
-private var secondsToExist : float = 3.0f;
+var secondsToExist : float = 3.0f;
 private var startTime : float;
 
 function Awake() {

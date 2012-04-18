@@ -10,7 +10,7 @@ function OnLevelWasLoaded(){
 
 function Update(){
   // if 3 seconds have passed since the timer was started
-  if(Time.time-StartTime >= transitionDuration){
+  if(Time.time-StartTime >= transitionDuration) {
     // destroy the gameobject this script is attached to
     Destroy(gameObject);
   }
