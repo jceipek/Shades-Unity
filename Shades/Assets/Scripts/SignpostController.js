@@ -2,6 +2,7 @@
 
 var level:String;
 var fadeTexture : Texture2D;
+var fadeDuration : float = 1.0f;
 
 private var StartTime : float;
 private var triggered = false;
@@ -30,7 +31,7 @@ function OnGUI(){
 	
 	  // interpolate the alpha of the GUI from 1(fully visible) 
 	  // to 0(invisible) over time
-	  GUI.color.a = Mathf.Lerp(0.0, 1.0, (Time.time-StartTime));
+	  GUI.color.a = Mathf.Lerp(0.0, 1.0, (Time.time-StartTime)/fadeDuration);
 	
 	  // draw the texture to fill the screen
 	  GUI.DrawTexture(Rect(0,0,Screen.width, Screen.height), fadeTexture);

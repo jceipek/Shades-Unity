@@ -12,6 +12,8 @@ var spawnPoint : GameObject;
 var darkTexture : Texture;
 var lightTexture : Texture;
 
+var mobileDeadZoneWidth = 2.0f;
+
 // Movement Related Variables
 class AvatarControllerMovement {
 	// The speed when walking 
@@ -184,7 +186,6 @@ function ApplyJumping () {
 function OnControllerColliderHit (hit : ControllerColliderHit) {
 		if (movement.falling && hit.moveDirection.y < 0.0) {
 			movement.falling = false;
-			Debug.Log("Landed");
 			hit.collider.gameObject.SendMessage("ImpactAt", hit.point, SendMessageOptions.DontRequireReceiver);
 		}
 
@@ -202,6 +203,7 @@ function ApplyGravity () {
 		movement.verticalSpeed -= movement.gravity;
 		if (!movement.falling) {
 			movement.falling = true;
+			SendMessage("FallingInitiated");
 		}
 	}
 
@@ -216,6 +218,30 @@ function Update() {
 
 	if (canControl) {
 		var h = Input.GetAxisRaw("Horizontal");
+		var jumpPressed : boolean = Input.GetButtonDown("Jump"); // Button Pressed after not being pressed
+		
+		for (var touch : Touch in Input.touches) {
+			var ray : Ray = Camera.main.ScreenPointToRay(touch.position);
+
+
+				var offsetFromAvatar : float = ray.origin.x - transform.position.x;
+				if (offsetFromAvatar < -mobileDeadZoneWidth) {
+					h = -1.0f;
+				} else if (offsetFromAvatar > mobileDeadZoneWidth) {
+					h = 1.0f;
+				} else {
+					h = 0.0f;
+				}
+				
+			if (touch.phase == TouchPhase.Ended) {
+				jumpPressed = true;
+			}
+        	//var hit : RaycastHit;
+        	//if (Physics.Raycast (ray, hit, 100.0f)) {
+            //	hit.transform.SendMessage("Clicked");
+       		//}
+		}
+		
 		
 		if (h > 0.0) {
 			if (movement.facing != 1) {
@@ -229,8 +255,7 @@ function Update() {
 			}
 		}
 	
-		if (Input.GetButtonDown("Jump")) {
-			// Button Pressed after not being pressed
+		if (jumpPressed) {
 
 			jump.lastButtonTime = Time.time;
 			if(controller.isGrounded) {
@@ -238,6 +263,7 @@ function Update() {
 				jump.lastStartHeight = transform.position.y;
 				jump.jumpingLevel = 0;
 				movement.verticalSpeed = jump.firstJumpForce;
+				SendMessage("JumpInitiated");
 			}
 			
 			jump.jumpingLevel++;
@@ -318,7 +344,11 @@ function IsWalking () {
 }
 
 function IsJumping() {
-	return jump.jumpingLevel > 0;
+	return !controller.isGrounded && !movement.falling;
+}
+
+function IsFalling() {
+	return movement.falling;
 }
 
 function IsTouchingCeiling() {

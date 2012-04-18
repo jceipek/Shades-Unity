@@ -6,6 +6,9 @@ ModelImporter:
     7400000: Default Take //// AvatarNew
     7400002: Idle //// AvatarNew
     7400004: Walking //// AvatarNew
+    7400006: Jump //// AvatarNew
+    7400008: Falling //// AvatarNew
+    7400010: Jumping //// AvatarNew
   serializedVersion: 10
   materials:
     importMaterials: 1

@@ -15,6 +15,8 @@ var hangTimeUntilFallingAnimation = 0.05;
 
 class AvatarAnimationSpeed {
 	var walkSpeedModifier = 2.5;
+	var jumpSpeedModifier = 1.0;
+	var fallSpeedModifier = 1.0;
 	
 	//@System.NonSerialized
 	//var walkSpeedStd : float;
@@ -59,6 +61,12 @@ function Start () {
 	var walk = animation["Walking"];
 	//animSpeed.walkSpeedStd = walk.speed;
 	walk.speed *= animSpeed.walkSpeedModifier;
+	
+	var jump = animation["Jumping"];
+	jump.speed *= animSpeed.jumpSpeedModifier;
+	
+	var fall = animation["Falling"];
+	fall.speed *= animSpeed.fallSpeedModifier;
 
 }
 
@@ -71,26 +79,40 @@ function Update () {
 	//if (controller.GetHangTime() < hangTimeUntilFallingAnimation) {
 		// Are we moving the character?
 		//animation["Walking"].speed = animSpeed.walkSpeedStd * animSpeed.walkSpeedModifier;
-		if (controller.IsWalking())
-		{
-			animation.CrossFade("Walking");
-			if (!effect.isPlaying || effect.clip != sounds.walking) {
-				effect.clip = sounds.walking;
-				effect.volume = 1.0f;
-				effect.Play();
+		if (!controller.IsJumping() && !controller.IsFalling()) {
+			if (controller.IsWalking())
+			{
+				animation.wrapMode = WrapMode.Loop;
+				animation.CrossFade("Walking");
+				if (!effect.isPlaying || effect.clip != sounds.walking) {
+					effect.clip = sounds.walking;
+					effect.volume = 1.0f;
+					effect.Play();
+				}
 			}
-		}
-		// Go back to idle when not moving
-		else {
-			animation.CrossFade("Idle");//, 0.5);
-			FadeAudio(1.0f, Fade.Out);
-			effect.Stop();
+			// Go back to idle when not moving
+			else {
+				animation.wrapMode = WrapMode.Loop;
+				animation.CrossFade("Idle");//, 0.5);
+				FadeAudio(1.0f, Fade.Out);
+				effect.Stop();
+			}
 		}
 	//}
 	// When falling off an edge, after hangTimeUntilFallingAnimation we will fade towards the ledgeFall animation
 	//else {
 		//animation.CrossFade ("ledgeFall");
 	//}
+}
+
+function JumpInitiated() {
+	animation.wrapMode = WrapMode.Once;
+	animation.Play("Jumping");
+}
+
+function FallingInitiated() {
+	animation.wrapMode = WrapMode.Once;
+	animation.Blend("Falling");
 }
 
 //function DidJump () {
