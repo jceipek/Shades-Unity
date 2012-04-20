@@ -43,22 +43,30 @@ function Start () {
 	var boxCollider = leftBoundary.AddComponent (BoxCollider);
 	boxCollider.size = Vector3 (colliderThickness, bounds.height + colliderThickness * 2.0 + fallOutBuffer, colliderThickness);
 	boxCollider.center = Vector3 (bounds.xMin - colliderThickness * 0.5, bounds.y + bounds.height * 0.5 - fallOutBuffer * 0.5, 0.0);
+	boxCollider.isTrigger = true;
+	leftBoundary.AddComponent(DeathZoneController);
 	
 	var rightBoundary = new GameObject ("Right Boundary");
 	rightBoundary.transform.parent = createdBoundaries.transform;
 	boxCollider = rightBoundary.AddComponent (BoxCollider);
 	boxCollider.size = Vector3 (colliderThickness, bounds.height + colliderThickness * 2.0 + fallOutBuffer, colliderThickness);
 	boxCollider.center = Vector3 (bounds.xMax + colliderThickness * 0.5, bounds.y + bounds.height * 0.5 - fallOutBuffer * 0.5, 0.0);
+	boxCollider.isTrigger = true;
+	rightBoundary.AddComponent(DeathZoneController);
 	
 	var topBoundary = new GameObject ("Top Boundary");
 	topBoundary.transform.parent = createdBoundaries.transform;
 	boxCollider = topBoundary.AddComponent (BoxCollider);
 	boxCollider.size = Vector3 (bounds.width + colliderThickness * 2.0, colliderThickness, colliderThickness);
 	boxCollider.center = Vector3 (bounds.x + bounds.width * 0.5, bounds.yMax + colliderThickness * 0.5, 0.0);
+	boxCollider.isTrigger = true;
+	topBoundary.AddComponent(DeathZoneController);
 	
 	var bottomBoundary = new GameObject ("Bottom Boundary (Including Fallout Buffer)");
 	bottomBoundary.transform.parent = createdBoundaries.transform;
 	boxCollider = bottomBoundary.AddComponent (BoxCollider);
 	boxCollider.size = Vector3 (bounds.width + colliderThickness * 2.0, colliderThickness, colliderThickness);
 	boxCollider.center = Vector3 (bounds.x + bounds.width * 0.5, bounds.yMin - colliderThickness * 0.5 - fallOutBuffer, 0.0);
+	boxCollider.isTrigger = true;
+	bottomBoundary.AddComponent(DeathZoneController);
 }
