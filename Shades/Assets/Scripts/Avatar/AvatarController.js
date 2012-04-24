@@ -194,10 +194,14 @@ function ApplyJumping () {
 }
 
 function OnControllerColliderHit (hit : ControllerColliderHit) {
-		if (movement.falling && hit.moveDirection.y < 0.0) {
-			movement.falling = false;
-			hit.collider.gameObject.SendMessage("ImpactAt", hit.point, SendMessageOptions.DontRequireReceiver);
-		}
+	if (hit.collider.gameObject.name == "Enemy") {
+		OnDeath();
+		Debug.Log("hit enemy");
+	}
+	if (movement.falling && hit.moveDirection.y < 0.0) {
+		movement.falling = false;
+		hit.collider.gameObject.SendMessage("ImpactAt", hit.point, SendMessageOptions.DontRequireReceiver);
+	}
 
 }
 
@@ -225,7 +229,6 @@ function ApplyGravity () {
 }
 
 function Update() {
-
 	if (canControl) {
 		var h = Input.GetAxisRaw("Horizontal");
 		var jumpPressed : boolean = Input.GetButtonDown("Jump"); // Button Pressed after not being pressed
