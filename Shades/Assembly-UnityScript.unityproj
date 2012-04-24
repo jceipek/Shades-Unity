@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\LevelFadeIn.js" />
      <Compile Include="Assets\Scripts\LeverController.js" />
      <Compile Include="Assets\Scripts\MenuOptionController.js" />
+     <Compile Include="Assets\Scripts\MenuSelectorController.js" />
      <Compile Include="Assets\Scripts\MobileMenuController.js" />
      <Compile Include="Assets\Scripts\NewGameController.js" />
      <Compile Include="Assets\Scripts\ParallaxScrollController.js" />
