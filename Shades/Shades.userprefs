@@ -1,12 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlatformController.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraScrolling.js">
     <Files>
       <File FileName="Assets/Scripts/Avatar/AvatarController.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlatformController.js" Line="91" Column="38" />
+      <File FileName="Assets/Scripts/PlatformController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/LeverController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/CameraFocus.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CameraScrolling.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CameraScrolling.js" Line="22" Column="1" />
       <File FileName="Assets/Scripts/ParallaxScrollController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/LevelAttributes.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/DeathZoneController.js" Line="1" Column="1" />
