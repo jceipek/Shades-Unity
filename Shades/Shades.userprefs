@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraScrolling.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AnimatedTextureController.js">
     <Files>
       <File FileName="Assets/Scripts/Avatar/AvatarController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/PlatformController.js" Line="1" Column="1" />
@@ -11,6 +11,7 @@
       <File FileName="Assets/Scripts/LevelAttributes.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/DeathZoneController.js" Line="1" Column="1" />
       <File FileName="Assets/Scripts/MenuSelectorController.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/AnimatedTextureController.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

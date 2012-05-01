@@ -44,6 +44,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AnimatedTextureController.js" />
      <Compile Include="Assets\Scripts\Avatar\AvatarController.js" />
      <Compile Include="Assets\Scripts\Avatar\AvatarPlayerAnimation.js" />
      <Compile Include="Assets\Scripts\Avatar\CameraTargetAttributes.js" />
