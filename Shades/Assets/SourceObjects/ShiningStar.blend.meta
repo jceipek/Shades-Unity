@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: bddaa63c0f9be42829f9d28d4fb12288
+guid: e13691a22c228445088fbcaf99200e20
 ModelImporter:
   fileIDToRecycleName:
     4300000: Plane
-    7400000: Default Take //// MountainBig
+    7400000: Default Take //// ShiningStar
   serializedVersion: 10
   materials:
     importMaterials: 1
