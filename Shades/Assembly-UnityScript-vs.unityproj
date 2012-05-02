@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\ParallaxScrollController.js" />
      <Compile Include="Assets\Scripts\PlatformController.js" />
      <Compile Include="Assets\Scripts\PortalController.js" />
+     <Compile Include="Assets\Scripts\ResetSaveController.js" />
      <Compile Include="Assets\Scripts\SignpostController.js" />
      <Compile Include="Assets\Scripts\SpawnPointController.js" />
      <Compile Include="Assets\Scripts\TimedDeathController.js" />
