@@ -16,32 +16,33 @@ private var timer : float;
 
 function Start() {
 	if (randomDelay) {
+		yield WaitForSeconds(Random.value * delayLength);
+	}
+	
+	while(true) {
+		currIndex += 1;
+			
+		if (currIndex > splitX*splitY) {
+			currIndex = 0;
+			if (randomDelay) {
+				yield WaitForSeconds(Random.value * delayLength);
+			} else {
+				yield WaitForSeconds(delayLength);
+			}
+		}
+		
+		renderer.material.SetTextureOffset ("_MainTex", GetOffset());
+		
+		yield WaitForSeconds(cycleRate);
+	}
+
+	if (randomDelay) {
 		timer -= Random.value * delayLength;
 	} else {
 		timer -= delayLength;
 	}
 }
 
-function Update() {
-	if (timer >= cycleRate) {
-
-		timer = 0.0f;
-		currIndex += 1;
-		
-		if (currIndex > splitX*splitY) {
-			currIndex = 0;
-			if (randomDelay) {
-				timer -= Random.value * delayLength;
-			} else {
-				timer -= delayLength;
-			}
-		}
-		
-		var offset : Vector2 = new Vector2(parseFloat(currIndex%splitX)/parseFloat(splitX)+initialOffsetX, Mathf.Floor(currIndex/splitX)/parseFloat(splitY)+initialOffsetY);
-		renderer.material.SetTextureOffset ("_MainTex", offset);
-	} else {
-		timer += Time.deltaTime;
-	}
-	
-
+private function GetOffset() : Vector2 {
+	return new Vector2(parseFloat(currIndex%splitX)/parseFloat(splitX)+initialOffsetX, Mathf.Floor(currIndex/splitX)/parseFloat(splitY)+initialOffsetY);
 }
