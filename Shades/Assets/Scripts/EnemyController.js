@@ -1,7 +1,21 @@
 #pragma strict
 
+
 var darkTexture : Texture;
 var lightTexture : Texture;
+
+@System.NonSerialized
+var avatar : GameObject;
+@System.NonSerialized
+var collisionFlags : boolean;
+@System.NonSerialized
+var direction : int = 1;
+@System.NonSerialized
+var overPlatformBefore : boolean = true;
+@System.NonSerialized
+var movementOffset = Vector3(2, 0, 0);
+@System.NonSerialized
+var controller : CharacterController;
 
 function Awake() {
 	// Called before any Start functions and lets us initialize stuff. Always called (but only once) even if object is disabled, so use this for construction.	
@@ -12,19 +26,32 @@ function Awake() {
 	//Physics.IgnoreLayerCollision(LayerMask.NameToLayer("LightWorld"),LayerMask.NameToLayer("DarkWorld"),true);
 	
 	//CorrectTexture();
-
+	
+	
+	controller = GetComponent(CharacterController);
+	
+	avatar = GameObject.Find("Avatar");
 	
 
 }
 
 function Update() {
-	var down = Vector3(0, -5, 0);
+	var down = Vector3(0, -2, 0);
 	
-	//Debug.DrawLine (transform.position, down + transform.position, Color.green);
+	if (!Physics.Raycast(transform.position, down, 2) && overPlatformBefore) {
+		direction = -direction;
+		overPlatformBefore = false;
+    } else {
+		if (Physics.Raycast(transform.position, down, 2) && !overPlatformBefore) {
+			overPlatformBefore = true;
+		}
+	}
+	EnemyMove();
 	
-	if (Physics.Raycast(transform.position, down, 2)) {
-		
-    }
+	var distance = Vector3.Distance (avatar.transform.position, transform.position);
+	if (distance < 3) {
+		avatar.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
+	}
 }
 
 function OnTriggerEnter (other : Collider) {
@@ -32,5 +59,7 @@ function OnTriggerEnter (other : Collider) {
 }
 
 function EnemyMove() {
-	
+	movementOffset *= direction * Time.deltaTime;
+	collisionFlags = controller.Move(movementOffset);
+	movementOffset = Vector3(2, 0, 0);
 }
