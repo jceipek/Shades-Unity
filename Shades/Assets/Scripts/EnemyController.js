@@ -1,8 +1,6 @@
 #pragma strict
 
-
-var darkTexture : Texture;
-var lightTexture : Texture;
+var movementSpeed : float = 1.0f;
 
 @System.NonSerialized
 var avatar : GameObject;
@@ -39,27 +37,26 @@ function Update() {
 	var down = Vector3(0, -2, 0);
 	
 	if (!Physics.Raycast(transform.position, down, 2) && overPlatformBefore) {
-		direction = -direction;
+		direction *= -1;
 		overPlatformBefore = false;
     } else {
 		if (Physics.Raycast(transform.position, down, 2) && !overPlatformBefore) {
 			overPlatformBefore = true;
 		}
 	}
+	
 	EnemyMove();
 	
-	var distance = Vector3.Distance (avatar.transform.position, transform.position);
+	var distance = Vector3.Distance(avatar.transform.position, transform.position);
 	if (distance < 3) {
-		avatar.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
+		avatar.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
 	}
 }
 
-function OnTriggerEnter (other : Collider) {
-	other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
+function OnTriggerEnter(other : Collider) {
+	other.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
 }
 
 function EnemyMove() {
-	movementOffset *= direction * Time.deltaTime;
-	collisionFlags = controller.Move(movementOffset);
-	movementOffset = Vector3(2, 0, 0);
+	collisionFlags = controller.Move(movementOffset * movementSpeed * direction * Time.deltaTime);
 }
