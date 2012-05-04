@@ -12,11 +12,13 @@ function Awake () {
 	initScrollLayerPos = transform.position.x;
 }
 
-function Update () {
-	// Where should our camera be looking right now?
-	//var goalPosition : Vector3 = Camera.main.GetComponent(CameraScrolling).GetGoalPosition();
-	//var actualCamPosX : float = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness).x;
-	var actualCamPosX = Camera.main.transform.position.x;
-	
-	transform.position.x = Mathf.Lerp(transform.position.x, sensitivity * (actualCamPosX - initCamPos) + initScrollLayerPos, Time.deltaTime * smoothTime);
+function LateUpdate() {
+	SetToGoal();
+}
+
+
+function SetToGoal() {
+	var actualCamPosX : float = Camera.main.transform.position.x;
+	transform.position.x = sensitivity * (actualCamPosX - initCamPos) + initScrollLayerPos;
+
 }
