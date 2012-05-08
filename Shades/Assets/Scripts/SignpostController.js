@@ -9,6 +9,8 @@ private var triggered = false;
 
 function OnTriggerEnter(other : Collider) {
 	if (other.tag == "Player") {
+		Debug.Log("Switch Now!");
+		
 		other.gameObject.SendMessage ("SetControllable", false);
 		triggered = true;
 		StartTime = Time.time;

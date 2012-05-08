@@ -39,6 +39,8 @@ function Awake() {
 function OnTriggerEnter(other : Collider) {
 	if (other.tag == "Player") {
 		avatarInBounds = true;
+	} else if (other.tag == "Enemy") {
+		Switch();
 	}
 }
 
