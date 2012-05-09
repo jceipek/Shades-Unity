@@ -26,6 +26,8 @@ var animSpeed : AvatarAnimationSpeed;
 
 class SoundClips {
 	var walking : AudioClip;
+	var jumping : AudioClip;
+	var falling : AudioClip;
 
 }
 var sounds : SoundClips;
@@ -86,6 +88,7 @@ function Update () {
 				animation.CrossFade("Walking");
 				if (!effect.isPlaying || effect.clip != sounds.walking) {
 					effect.clip = sounds.walking;
+					effect.loop = true;
 					effect.volume = 1.0f;
 					effect.Play();
 				}
@@ -96,6 +99,8 @@ function Update () {
 				animation.CrossFade("Idle");//, 0.5);
 				FadeAudio(1.0f, Fade.Out);
 				effect.Stop();
+				
+				Debug.Log("Effect Stopped");
 			}
 		}
 	//}
@@ -106,13 +111,28 @@ function Update () {
 }
 
 function JumpInitiated() {
+	var effect : AudioSource = GetComponent(AudioSource);
 	animation.wrapMode = WrapMode.Once;
 	animation.Play("Jumping");
+	//effect.loop = false;
+	effect.clip = sounds.jumping;
+	effect.volume = 0.5f;
+	effect.PlayOneShot(sounds.jumping);
+	
+	Debug.Log("Effect Started Jump");
 }
 
 function FallingInitiated() {
+	var effect : AudioSource = GetComponent(AudioSource);
 	animation.wrapMode = WrapMode.Once;
 	animation.Blend("Falling");
+	//effect.loop = false;
+	effect.clip = sounds.falling;
+	effect.volume = 0.5f;	
+	
+	effect.PlayOneShot(sounds.falling);
+	
+	Debug.Log("Effect Started Fall");
 }
 
 //function DidJump () {
